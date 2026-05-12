@@ -30,7 +30,9 @@ speaker-design/
 │   ├── baffle-and-cabinet-acoustics.md  # baffle step, diffraction, panel modes
 │   ├── closed-box-geometry.md     # how box geometry shapes driver response
 │   ├── room-response-simulation.md # modal sum, image, FEM/FDTD, multi-sub sim
-│   └── horns-and-waveguides.md    # flare profiles, OS waveguide, CD, Hornresp
+│   ├── horns-and-waveguides.md    # flare profiles, OS waveguide, CD, Hornresp
+│   ├── phase-plugs.md             # compression driver + cone phase plugs, coaxial
+│   └── point-source-and-line-arrays.md  # coaxial, line array, CBT, splay design
 ├── tools/                         # executable calculation helpers
 │   ├── ts_from_added_mass.py      # T/S extraction from impedance + added mass
 │   ├── sealed_box.py              # sealed-box alignment from T/S

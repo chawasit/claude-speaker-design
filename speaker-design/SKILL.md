@@ -38,6 +38,8 @@ preload everything; this skill is structured for progressive disclosure.
 | closed-box geometry, shape, Vb, driver placement    | `references/closed-box-geometry.md` |
 | room modes, image method, FEM/FDTD, multi-sub sim   | `references/room-response-simulation.md` |
 | horn flare, waveguide, OS, tractrix, CD, Hornresp   | `references/horns-and-waveguides.md` |
+| compression-driver phase plug, coaxial bullet, tangerine | `references/phase-plugs.md` |
+| point source, coaxial, line array, CBT, splay       | `references/point-source-and-line-arrays.md` |
 
 ## Calculation tools
 
