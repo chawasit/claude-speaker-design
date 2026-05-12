@@ -11,7 +11,7 @@
   "plugins": [
     {
       "name": "claude-speaker-design",
-      "source": ".",
+      "source": "./plugins/claude-speaker-design",
       "description": "Two composable Claude skills: speaker-design (acoustic engineering from physics to enclosures to room treatment) and parametric-cad (driving CAD MCP servers like Fusion 360, FreeCAD, Build123d to produce manufacturable speaker cabinets).",
       "version": "1.0.0",
       "category": "engineering",
