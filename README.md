@@ -1,105 +1,135 @@
 # claude-speaker-design
 
-Claude skills for designing loudspeakers — from cone materials and
-motor structures through enclosure acoustics, room interaction, and
-the physics of sound, and from acoustic specifications into
-manufacturable CAD via MCP servers.
+A Claude Code plugin bundling two composable skills for loudspeaker
+engineering — from cone materials and motor structures through
+enclosure acoustics, room interaction, and the physics of sound, and
+from acoustic specifications into manufacturable CAD via MCP servers.
 
-Two skills live here, designed to work together:
+## Install
 
-## `speaker-design/` — the acoustic & engineering knowledge
+### As a Claude Code plugin (recommended)
+
+Add this repo as a plugin marketplace and install:
+
+```
+/plugin marketplace add https://github.com/chawasit/claude-speaker-design
+/plugin install claude-speaker-design@claude-speaker-design
+```
+
+The plugin name and the marketplace name are both `claude-speaker-design`.
+
+To verify it loaded:
+
+```
+/plugin list
+```
+
+Both skills (`speaker-design`, `parametric-cad`) become available.
+Claude auto-loads them by topic relevance per the `description`
+field in each skill's frontmatter.
+
+### Alternative: install skills manually
+
+If you'd rather not use the plugin layer, clone the repo and symlink
+each skill folder into a directory Claude scans for skills:
+
+```bash
+git clone https://github.com/chawasit/claude-speaker-design.git
+ln -s "$(pwd)/claude-speaker-design/skills/speaker-design"  ~/.claude/skills/speaker-design
+ln -s "$(pwd)/claude-speaker-design/skills/parametric-cad"   ~/.claude/skills/parametric-cad
+```
+
+Either approach works; the plugin path is the canonical install.
+
+## Layout
+
+```
+claude-speaker-design/
+├── .claude-plugin/
+│   ├── plugin.json                       # plugin manifest
+│   └── marketplace.json                  # marketplace entry for git distribution
+├── README.md
+└── skills/
+    ├── speaker-design/                   # acoustic engineering skill
+    │   ├── SKILL.md
+    │   ├── references/                   # 22 topical reference docs
+    │   ├── tools/                        # 9 Python calculation helpers
+    │   └── cookbooks/                    # 5 worked end-to-end designs
+    └── parametric-cad/                   # CAD-via-MCP skill
+        ├── SKILL.md
+        ├── references/                   # 7 topical reference docs
+        └── cookbooks/                    # 1 worked end-to-end CAD build
+```
+
+## What the skills cover
+
+### `speaker-design`
 
 Triggered when a conversation touches loudspeaker design, driver
 parameters, enclosure tuning, crossover networks, room acoustics,
 horns, measurement, DSP/active processing, listening setup, or
 acoustic treatment.
 
-```
-speaker-design/
-├── SKILL.md                              # entry: routing + workflow + pitfalls
-├── references/
-│   ├── physics-of-sound.md               # waves, SPL, room modes, radiation
-│   ├── acoustic-properties.md            # FR, directivity, distortion, excursion
-│   ├── thiele-small.md                   # driver small-signal parameters
-│   ├── enclosures.md                     # sealed, ported, bandpass, horn, TL
-│   ├── crossovers.md                     # filter topologies, slopes, alignment
-│   ├── materials.md                      # cones, surrounds, magnets, cabinets
-│   ├── driver-types.md                   # dynamic, compression, ribbon, AMT, ESL...
-│   ├── measurement.md                    # REW, gating, T/S extraction, impedance
-│   ├── subwoofers.md                     # LF-specific design, multi-sub, integration
-│   ├── dsp-and-active.md                 # active speakers, FIR/IIR, room correction
-│   ├── baffle-and-cabinet-acoustics.md   # baffle step, diffraction, panel modes
-│   ├── closed-box-geometry.md            # how box geometry shapes driver response
-│   ├── room-response-simulation.md       # modal sum, image, FEM/FDTD, multi-sub sim
-│   ├── horns-and-waveguides.md           # flare profiles, OS waveguide, CD, Hornresp
-│   ├── phase-plugs.md                    # compression driver + cone phase plugs
-│   ├── point-source-and-line-arrays.md   # coaxial, line array, CBT, splay
-│   ├── listening-setup.md                # placement, toe-in, height, first reflections
-│   ├── acoustic-treatment.md             # absorbers, bass traps, diffusers, T_60
-│   ├── standards-and-targets.md          # CTA-2034 spinorama, Harman target, IEC
-│   ├── time-domain.md                    # impulse / step response, group delay
-│   ├── headphones.md                     # over-ear, IEM, planar, Harman target
-│   ├── glossary.md                       # terms across both skills, indexed
-│   └── bibliography.md                   # foundational papers, books, web resources
-├── tools/                                # executable calculation helpers
-│   ├── ts_from_added_mass.py             # T/S from impedance + added-mass
-│   ├── sealed_box.py                     # sealed-box alignment from T/S
-│   ├── ported_box.py                     # ported alignment (B4/QB3/C4 tabulated)
-│   ├── port_length.py                    # port length + chuffing-velocity check
-│   ├── crossover_lr.py                   # LR2 / LR4 component values + Zobel
-│   ├── xmax_spl.py                       # displacement-limited SPL vs frequency
-│   ├── room_modes.py                     # axial / tangential / oblique room modes
-│   ├── group_delay.py                    # filter group delay vs audibility threshold
-│   └── diffraction_olson.py              # baffle step + edge diffraction estimator
-└── cookbooks/
-    ├── bookshelf-2way.md                 # ported 6.5"+1" LR4 two-way
-    ├── sealed-subwoofer.md               # 12" sealed sub + Linkwitz transform
-    ├── three-way-tower.md                # 10"+5"+1" floor-stander
-    ├── open-baffle-dipole.md             # H-frame dipole + boxed LF
-    └── active-studio-monitor.md          # DSP-active 6.5"+1" with waveguide
-```
+References:
+- **Physics & properties**: `physics-of-sound`, `acoustic-properties`,
+  `thiele-small`, `time-domain`
+- **Drivers & cabinets**: `driver-types`, `materials`, `phase-plugs`,
+  `enclosures`, `closed-box-geometry`,
+  `baffle-and-cabinet-acoustics`, `horns-and-waveguides`,
+  `point-source-and-line-arrays`
+- **Subsystems**: `crossovers`, `subwoofers`, `dsp-and-active`
+- **Setup & measurement**: `measurement`, `listening-setup`,
+  `acoustic-treatment`, `room-response-simulation`,
+  `standards-and-targets`
+- **Special**: `headphones`
+- **Navigation**: `glossary`, `bibliography`
 
-## `parametric-cad/` — drives CAD MCP servers (Fusion 360, FreeCAD, Build123d, ...)
+Tools (all CLI Python, runnable from the skill directory):
+- T/S extraction from added-mass measurement
+- Sealed and ported box alignment design (Small-tabulated)
+- Port length with chuffing-velocity check
+- Linkwitz-Riley crossover values + Zobel
+- Displacement-limited SPL prediction
+- Room mode enumeration with Schroeder frequency
+- Group delay vs audibility threshold
+- Baffle step + edge diffraction estimator
+
+Cookbooks (end-to-end design walkthroughs):
+- Ported 6.5" + 1" bookshelf, LR4
+- 12" sealed subwoofer with Linkwitz transform
+- 10" + 5" + 1" three-way tower
+- Open-baffle H-frame dipole
+- DSP-active studio monitor with waveguide
+
+### `parametric-cad`
 
 Triggered when a conversation involves driving a parametric CAD tool
-through an MCP server. Covers the disciplined render→measure→iterate
-workflow, parameter-driven modeling philosophy, MCP tool-discovery
-patterns, common gaps in CAD MCPs, speaker-cabinet CAD patterns,
-hardware/finishing, assemblies/drawings, and sheet-goods nesting.
+through an MCP server — Fusion 360 (official Fusion MCP,
+faust-machines, FusionMCP), FreeCAD (neka-nat), OnShape, SolidWorks,
+OpenSCAD, CadQuery, or Build123d.
 
-```
-parametric-cad/
-├── SKILL.md                              # entry: when-to-use, workflow, pitfalls
-├── references/
-│   ├── parametric-modeling.md            # parameters, sketches, features, rebuilds
-│   ├── mcp-conventions.md                # tool naming, annotations, server families
-│   ├── speaker-cabinet-cad.md            # driver cutouts, ports, bracing, baffles
-│   ├── manufacturability.md              # tolerances, joinery, kerf, DFM
-│   ├── fasteners-and-finishing.md        # M-screws, inserts, glue, finishing
-│   ├── assemblies-and-drawings.md        # assemblies, mates, drawings, GD&T
-│   └── sheet-goods-nesting.md            # panel layout, kerf, DXF export
-└── cookbooks/
-    └── speaker-cabinet-2way.md           # end-to-end CAD for the bookshelf design
-```
+References:
+- `parametric-modeling` (parameters, sketches, features, rebuilds)
+- `mcp-conventions` (tool naming, annotations, server families)
+- `speaker-cabinet-cad` (driver cutouts, ports, bracing, baffles)
+- `manufacturability` (tolerances, joinery, kerf, DFM)
+- `fasteners-and-finishing` (M-screws, inserts, glue, finishes)
+- `assemblies-and-drawings` (assemblies, mates, drawings, GD&T)
+- `sheet-goods-nesting` (panel layout, kerf, DXF export)
 
-## How they compose
+Cookbook:
+- End-to-end CAD for the bookshelf design, consuming the acoustic
+  spec from `speaker-design`
 
-The two skills compose naturally:
+## How the skills compose
 
-1. Use `speaker-design` to specify the speaker (driver T/S → alignment
-   → port → crossover → baffle layout → cabinet dimensions). Many
-   cookbooks walk this end-to-end.
-2. Use `parametric-cad` to turn that specification into a CAD model
-   via whatever Fusion 360 / FreeCAD / Build123d MCP is loaded. The
-   bookshelf CAD cookbook consumes the same spec and produces the
-   parametric model + DXF/STEP exports.
-3. After the build, return to `speaker-design` for measurement
-   verification, listening setup, and acoustic treatment.
+1. Use `speaker-design` to specify the speaker: driver T/S → alignment
+   → port → crossover → baffle layout → cabinet dimensions.
+2. Use `parametric-cad` to turn that spec into a CAD model via your
+   loaded MCP server — produces STEP and DXF for fabrication.
+3. Return to `speaker-design` for measurement verification, listening
+   setup, and acoustic treatment of the finished room.
 
-## Install
+## License
 
-Copy or symlink either or both skill folders into a location Claude
-scans for skills (e.g. `~/.claude/skills/` or a project's
-`.claude/skills/`). The skills are independent — you can use either
-one without the other — but used together is the typical workflow
-for a complete design.
+MIT

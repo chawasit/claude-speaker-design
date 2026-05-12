@@ -1,0 +1,30 @@
+{
+  "name": "claude-speaker-design",
+  "owner": {
+    "name": "chawasit",
+    "url": "https://github.com/chawasit"
+  },
+  "metadata": {
+    "description": "Loudspeaker engineering and parametric CAD skills for Claude",
+    "version": "1.0.0"
+  },
+  "plugins": [
+    {
+      "name": "claude-speaker-design",
+      "source": ".",
+      "description": "Two composable Claude skills: speaker-design (acoustic engineering from physics to enclosures to room treatment) and parametric-cad (driving CAD MCP servers like Fusion 360, FreeCAD, Build123d to produce manufacturable speaker cabinets).",
+      "version": "1.0.0",
+      "category": "engineering",
+      "keywords": [
+        "audio",
+        "speaker-design",
+        "acoustics",
+        "cad",
+        "fusion360",
+        "loudspeaker",
+        "thiele-small",
+        "diy-audio"
+      ]
+    }
+  ]
+}

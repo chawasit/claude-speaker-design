@@ -1,0 +1,26 @@
+{
+  "name": "claude-speaker-design",
+  "version": "1.0.0",
+  "description": "Two composable Claude skills for loudspeaker engineering: speaker-design (acoustics, drivers, enclosures, crossovers, measurement, room treatment) and parametric-cad (driving Fusion 360 / FreeCAD / Build123d MCPs to produce manufacturable cabinet CAD).",
+  "author": {
+    "name": "chawasit"
+  },
+  "homepage": "https://github.com/chawasit/claude-speaker-design",
+  "repository": "https://github.com/chawasit/claude-speaker-design",
+  "license": "MIT",
+  "keywords": [
+    "audio",
+    "loudspeaker",
+    "speaker-design",
+    "acoustics",
+    "thiele-small",
+    "crossover",
+    "horn",
+    "subwoofer",
+    "cad",
+    "fusion360",
+    "freecad",
+    "build123d",
+    "mcp"
+  ]
+}
