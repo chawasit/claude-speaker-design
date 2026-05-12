@@ -35,6 +35,8 @@ preload everything; this skill is structured for progressive disclosure.
 | subwoofers, multi-sub, room gain, sub integration   | `references/subwoofers.md`          |
 | active speakers, FIR/IIR DSP, room correction       | `references/dsp-and-active.md`      |
 | baffle step, edge diffraction, panel/internal modes | `references/baffle-and-cabinet-acoustics.md` |
+| closed-box geometry, shape, Vb, driver placement    | `references/closed-box-geometry.md` |
+| room modes, image method, FEM/FDTD, multi-sub sim   | `references/room-response-simulation.md` |
 
 ## Calculation tools
 

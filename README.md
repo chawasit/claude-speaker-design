@@ -23,7 +23,9 @@ speaker-design/
 │   ├── measurement.md             # REW, gating, T/S extraction, impedance
 │   ├── subwoofers.md              # LF-specific design, multi-sub, integration
 │   ├── dsp-and-active.md          # active speakers, FIR/IIR, room correction
-│   └── baffle-and-cabinet-acoustics.md  # baffle step, diffraction, panel modes
+│   ├── baffle-and-cabinet-acoustics.md  # baffle step, diffraction, panel modes
+│   ├── closed-box-geometry.md     # how box geometry shapes the driver response
+│   └── room-response-simulation.md # modal sum, image, FEM/FDTD, multi-sub sim
 ├── tools/                         # executable calculation helpers
 │   ├── ts_from_added_mass.py
 │   ├── sealed_box.py
