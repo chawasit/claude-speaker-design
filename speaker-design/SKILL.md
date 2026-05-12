@@ -40,6 +40,13 @@ preload everything; this skill is structured for progressive disclosure.
 | horn flare, waveguide, OS, tractrix, CD, Hornresp   | `references/horns-and-waveguides.md` |
 | compression-driver phase plug, coaxial bullet, tangerine | `references/phase-plugs.md` |
 | point source, coaxial, line array, CBT, splay       | `references/point-source-and-line-arrays.md` |
+| listening triangle, toe-in, height, first-reflection | `references/listening-setup.md`     |
+| absorbers, bass traps, diffusers, LEDE, T_60         | `references/acoustic-treatment.md`  |
+| spinorama (CTA-2034), Harman target, standards       | `references/standards-and-targets.md` |
+| impulse / step response, group delay, audibility     | `references/time-domain.md`         |
+| over-ear, IEM, planar, Harman headphone target       | `references/headphones.md`          |
+| terminology lookup (cross-skill)                     | `references/glossary.md`            |
+| foundational papers, books, standards, web resources | `references/bibliography.md`        |
 
 ## Calculation tools
 
@@ -55,6 +62,9 @@ corrections you will otherwise forget.
 | `tools/port_length.py`        | Port length from area, Vb, target Fb          |
 | `tools/crossover_lr.py`       | Linkwitz-Riley filter component values        |
 | `tools/xmax_spl.py`           | Displacement-limited SPL vs. frequency        |
+| `tools/room_modes.py`         | Axial/tangential/oblique modes, Schroeder freq |
+| `tools/group_delay.py`        | Filter group delay vs. audibility threshold   |
+| `tools/diffraction_olson.py`  | Baffle step + edge diffraction prediction     |
 
 All scripts take CLI args, print results in SI, and warn when an input
 violates a model assumption (e.g. `ka > 1` for piston-band T/S).
@@ -67,6 +77,12 @@ the user's first real project — they show how the pieces compose.
 - `cookbooks/bookshelf-2way.md` — 6.5" + 1" dome bookshelf, ported, LR4.
 - `cookbooks/sealed-subwoofer.md` — 12" sealed sub with Linkwitz
   transform and a single PEQ for room mode 1.
+- `cookbooks/three-way-tower.md` — 10" + 5" + 1" floor-stander, ported
+  LF, sealed mid, optional active LF.
+- `cookbooks/open-baffle-dipole.md` — H-frame dipole mid/HF with
+  boxed LF assist; Linkwitz-school architecture.
+- `cookbooks/active-studio-monitor.md` — DSP-active 6.5" + 1" with
+  waveguide, Linkwitz transform, FIR option.
 
 ## Design workflow
 

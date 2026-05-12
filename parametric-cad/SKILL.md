@@ -42,6 +42,8 @@ When combined with the `speaker-design` skill, use the cookbook
 | driver cutouts, ports, bracing, baffle layout      | `references/speaker-cabinet-cad.md`        |
 | tolerances, joinery, CNC/laser/3D-print DFM        | `references/manufacturability.md`          |
 | M-screws, inserts, pilot holes, glue, sanding, finish | `references/fasteners-and-finishing.md` |
+| assemblies, mates, drawings, GD&T, BOM             | `references/assemblies-and-drawings.md`    |
+| sheet nesting, kerf, DXF export, grain orientation | `references/sheet-goods-nesting.md`        |
 | worked: bookshelf cabinet for the 2-way design     | `cookbooks/speaker-cabinet-2way.md`        |
 
 ## Workflow
