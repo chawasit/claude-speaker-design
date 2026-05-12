@@ -25,7 +25,8 @@ speaker-design/
 │   ├── dsp-and-active.md          # active speakers, FIR/IIR, room correction
 │   ├── baffle-and-cabinet-acoustics.md  # baffle step, diffraction, panel modes
 │   ├── closed-box-geometry.md     # how box geometry shapes the driver response
-│   └── room-response-simulation.md # modal sum, image, FEM/FDTD, multi-sub sim
+│   ├── room-response-simulation.md # modal sum, image, FEM/FDTD, multi-sub sim
+│   └── horns-and-waveguides.md    # flare profiles, OS waveguide, CD, Hornresp
 ├── tools/                         # executable calculation helpers
 │   ├── ts_from_added_mass.py
 │   ├── sealed_box.py

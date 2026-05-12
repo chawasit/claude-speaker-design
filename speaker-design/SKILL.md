@@ -37,6 +37,7 @@ preload everything; this skill is structured for progressive disclosure.
 | baffle step, edge diffraction, panel/internal modes | `references/baffle-and-cabinet-acoustics.md` |
 | closed-box geometry, shape, Vb, driver placement    | `references/closed-box-geometry.md` |
 | room modes, image method, FEM/FDTD, multi-sub sim   | `references/room-response-simulation.md` |
+| horn flare, waveguide, OS, tractrix, CD, Hornresp   | `references/horns-and-waveguides.md` |
 
 ## Calculation tools
 
