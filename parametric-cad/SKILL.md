@@ -41,6 +41,7 @@ When combined with the `speaker-design` skill, use the cookbook
 | MCP tool names, annotations, entity refs, gaps     | `references/mcp-conventions.md`            |
 | driver cutouts, ports, bracing, baffle layout      | `references/speaker-cabinet-cad.md`        |
 | tolerances, joinery, CNC/laser/3D-print DFM        | `references/manufacturability.md`          |
+| M-screws, inserts, pilot holes, glue, sanding, finish | `references/fasteners-and-finishing.md` |
 | worked: bookshelf cabinet for the 2-way design     | `cookbooks/speaker-cabinet-2way.md`        |
 
 ## Workflow

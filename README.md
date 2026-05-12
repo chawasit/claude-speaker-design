@@ -58,7 +58,8 @@ parametric-cad/
 │   ├── parametric-modeling.md     # parameters, sketches, features, rebuilds
 │   ├── mcp-conventions.md         # tool naming, annotations, discovery, server families
 │   ├── speaker-cabinet-cad.md     # driver cutouts, ports, bracing, baffles
-│   └── manufacturability.md       # tolerances, joinery, kerf, DFM
+│   ├── manufacturability.md       # tolerances, joinery, kerf, DFM
+│   └── fasteners-and-finishing.md # M-screws, inserts, pilot holes, glue, sanding, finishes, silicone
 └── cookbooks/
     └── speaker-cabinet-2way.md    # end-to-end CAD for the bookshelf design
 ```
