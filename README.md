@@ -35,8 +35,8 @@ each skill folder into a directory Claude scans for skills:
 
 ```bash
 git clone https://github.com/chawasit/claude-speaker-design.git
-ln -s "$(pwd)/claude-speaker-design/skills/speaker-design"  ~/.claude/skills/speaker-design
-ln -s "$(pwd)/claude-speaker-design/skills/parametric-cad"   ~/.claude/skills/parametric-cad
+ln -s "$(pwd)/claude-speaker-design/plugins/claude-speaker-design/skills/speaker-design"  ~/.claude/skills/speaker-design
+ln -s "$(pwd)/claude-speaker-design/plugins/claude-speaker-design/skills/parametric-cad"   ~/.claude/skills/parametric-cad
 ```
 
 Either approach works; the plugin path is the canonical install.
@@ -46,19 +46,22 @@ Either approach works; the plugin path is the canonical install.
 ```
 claude-speaker-design/
 ├── .claude-plugin/
-│   ├── plugin.json                       # plugin manifest
-│   └── marketplace.json                  # marketplace entry for git distribution
+│   └── marketplace.json                  # marketplace catalog at repo root
 ├── README.md
-└── skills/
-    ├── speaker-design/                   # acoustic engineering skill
-    │   ├── SKILL.md
-    │   ├── references/                   # 22 topical reference docs
-    │   ├── tools/                        # 9 Python calculation helpers
-    │   └── cookbooks/                    # 5 worked end-to-end designs
-    └── parametric-cad/                   # CAD-via-MCP skill
-        ├── SKILL.md
-        ├── references/                   # 7 topical reference docs
-        └── cookbooks/                    # 1 worked end-to-end CAD build
+└── plugins/
+    └── claude-speaker-design/            # the plugin itself
+        ├── .claude-plugin/
+        │   └── plugin.json               # plugin manifest
+        └── skills/
+            ├── speaker-design/           # acoustic engineering skill
+            │   ├── SKILL.md
+            │   ├── references/           # 22 topical reference docs
+            │   ├── tools/                # 9 Python calculation helpers
+            │   └── cookbooks/            # 5 worked end-to-end designs
+            └── parametric-cad/           # CAD-via-MCP skill
+                ├── SKILL.md
+                ├── references/           # 7 topical reference docs
+                └── cookbooks/            # 1 worked end-to-end CAD build
 ```
 
 ## What the skills cover
