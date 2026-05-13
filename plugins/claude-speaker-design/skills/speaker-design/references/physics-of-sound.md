@@ -103,8 +103,10 @@ The transition from near field (complex interference pattern across the
 cone) to far field (1/r decay, smooth directivity) sits near
 
 ```
-r_ff ≈ S_d / λ          ≈ a²/λ for a circular source
+r_ff ≈ a² / λ           (Rayleigh distance for a circular piston of radius a)
 ```
+
+Equivalently `r_ff ≈ S_d / (π·λ)` since `S_d = π·a²`.
 
 For a 6.5" driver at 1 kHz, `r_ff ≈ 0.02 m` — far field starts almost
 immediately. At 100 Hz it's ~2 mm. This justifies the **nearfield

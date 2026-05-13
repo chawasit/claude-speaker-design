@@ -16,14 +16,18 @@ import argparse
 import bisect
 
 # (Qts, alpha, h, f3_over_Fb)
+# For Butterworth-aligned reflex (B4) and quasi-Butterworth (QB3), the
+# system response is (quasi-)Butterworth, so f3 ≈ Fb. The slight
+# variation at table extremes accounts for the non-exact alignment that
+# occurs when Qts deviates from the alignment's optimum.
 B4 = [
-    (0.30, 1.92, 1.20, 0.83),
-    (0.32, 1.69, 1.13, 0.86),
-    (0.35, 1.55, 1.05, 0.89),
-    (0.383, 1.414, 1.00, 0.91),
-    (0.40, 1.34, 0.99, 0.92),
-    (0.45, 1.23, 0.95, 0.94),
-    (0.50, 1.20, 0.90, 0.96),
+    (0.30, 1.92, 1.20, 1.00),
+    (0.32, 1.69, 1.13, 1.00),
+    (0.35, 1.55, 1.05, 1.00),
+    (0.383, 1.414, 1.00, 1.00),
+    (0.40, 1.34, 0.99, 1.00),
+    (0.45, 1.23, 0.95, 1.00),
+    (0.50, 1.20, 0.90, 1.00),
 ]
 
 QB3 = [

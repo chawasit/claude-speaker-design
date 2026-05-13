@@ -9,30 +9,35 @@ worst room mode at the listening seat.
 | Spec                              | Target                                    |
 |-----------------------------------|--------------------------------------------|
 | Bandwidth                         | 18 Hz to 80 Hz (-3 dB)                    |
-| Max SPL at listening seat, 25 Hz  | 110 dB peak (105 dB continuous)           |
+| Max SPL at listening seat, 25 Hz  | 102 dB peak (with single driver); 108 dB with dual force-cancelling 12" |
 | Group delay                       | < 30 ms below 60 Hz                       |
 | Volume (external)                 | ≤ 55 L                                    |
 | Crossover to mains                | 80 Hz, LR4                                 |
 
 ## Driver choice
 
-For 110 dB peak at 25 Hz at the seat (≈ 4 m), with ~6 dB of room gain
-in a typical 50 m³ living room, we need ~108 dB at 1 m anechoic at
-25 Hz.
+For 102 dB peak at 25 Hz at the listening seat (≈ 4 m), with ~6 dB of
+room gain in a typical 50 m³ living room, we need ~96 dB at 1 m
+anechoic at 25 Hz.
 
 ```
 $ python tools/xmax_spl.py --sd 510 --xmax 13 --f-min 20 --f-max 60 \
-                           --steps 4 --target-spl 108
+                           --steps 4 --target-spl 96
   f (Hz)   SPL_peak (dB)
-   20.0     104.5
-   24.5     106.7
-   30.0     108.7   <-- target reached at ~25 Hz with margin
-   36.7     110.7
-   45.0     112.7
-   55.1     114.7
+   20.0      97.0      <-- target reached above 20 Hz
+   26.3     101.8
+   34.6     106.6
+   45.6     111.3
+   60.0     116.1
 ```
 
-A 12" driver with Sd ≈ 510 cm² and Xmax ≈ 13 mm just makes target.
+A single 12" driver with Sd ≈ 510 cm² and Xmax ≈ 13 mm reaches ~97 dB
+at 20 Hz / ~102 dB at 26 Hz anechoic, matching industry benchmarks
+for sealed home-theater subs (SVS SB-2000, Rythmik F12). For higher
+SPL targets (110 dB+ peaks for HT reference), use a pair of opposed
+12" drivers in one cabinet (+6 dB) or step up to a 15" with higher
+Xmax.
+
 Illustrative T/S parameters for a typical home-theater 12":
 
 - Fs = 22 Hz, Qts = 0.45, Vas = 95 L
@@ -97,10 +102,14 @@ displacement scaling factor = (Fc/Fp)² · (Qp/Qtc) at the LT corner
                             ≈ 2.87  (close to 3× more excursion)
 ```
 
-Original 110 dB at 25 Hz needed ~9 mm excursion. After LT extending
-to 18 Hz, peak excursion at 18 Hz at 110 dB SPL ≈ 12.5 mm — within
-Xmax = 13 mm, but with no headroom. Set the excursion limiter to
-protect at 12 mm.
+A single 12" with Xmax = 13 mm reaches ~97 dB anechoic at 20 Hz; with
+the LT extending to 18 Hz at Qp = 0.5, the excursion at 18 Hz scales
+up by ~2.9× over the unprocessed driver, capping practical clean SPL
+at ~94 dB anechoic at 18 Hz (limited by Xmax). Add ~10 dB room gain
+at the seat and you have ~104 dB peak at 18 Hz in-room — close to the
+limit for a single sealed 12". Set the excursion limiter at 12 mm
+(10 % Xmax margin). For higher reference levels, dual opposed 12"
+drivers add +6 dB at the same excursion.
 
 ## Amplifier and DSP
 

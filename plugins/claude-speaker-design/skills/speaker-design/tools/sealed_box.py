@@ -32,8 +32,11 @@ def sealed(fs, qts, vas_L, vb_L=None, qtc_target=None):
     qtc = qts * math.sqrt(1.0 + alpha)
 
     # -3 dB frequency of the resulting 2nd-order high-pass
-    a = 1.0 - 1.0 / (2.0 * qtc ** 2)
-    f_minus_3 = fc * math.sqrt(a + math.sqrt(a * a + 1.0))
+    # -3 dB frequency of the resulting 2nd-order high-pass (Small 1972).
+    # Solving |H(jw)|^2 = 0.5 for w gives:
+    #   (w/wc)^2 = b + sqrt(b^2 + 1),  where b = 1/(2*Qtc^2) - 1
+    b = 1.0 / (2.0 * qtc ** 2) - 1.0
+    f_minus_3 = fc * math.sqrt(b + math.sqrt(b * b + 1.0))
 
     # Qualitative alignment label
     label = "non-standard"

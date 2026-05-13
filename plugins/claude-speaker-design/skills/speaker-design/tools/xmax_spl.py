@@ -1,9 +1,14 @@
 #!/usr/bin/env python3
 """Displacement-limited SPL of a direct-radiator driver vs. frequency.
 
-For a piston in half-space, peak SPL at distance r when limited by Xmax:
+For a piston in an infinite baffle (half-space, ka<<1), the far-field
+on-axis peak pressure is (Beranek / Olson):
 
-    SPL(f) = 20*log10( rho0 * Sd * (2*pi*f)^2 * x_peak / (sqrt(2) * p_ref * r) )
+    p_peak = rho0 * S_d * omega^2 * x_peak * n / (2 * pi * r)
+
+Converting to RMS and to dB SPL:
+
+    SPL(f) = 20*log10(rho0 * S_d * omega^2 * x_peak * n / (sqrt(2) * 2*pi * p_ref * r))
 
 This is the anechoic ceiling. Below the enclosure's tuning frequency
 (Fb or Fc), this is the actual cap on output. Above tuning, port air
@@ -22,7 +27,11 @@ P_REF = 20e-6   # Pa
 
 
 def spl_at(f, sd_m2, xmax_m, r_m=1.0, n_drivers=1):
-    p_peak = RHO0 * sd_m2 * (2 * math.pi * f) ** 2 * xmax_m * n_drivers / r_m
+    # Piston in infinite baffle, half-space, far-field, on-axis:
+    #   p_peak = rho0 * Sd * omega^2 * x_peak * n / (2*pi*r)
+    # The 2*pi divisor is the half-space radiation geometry (4*pi for free space).
+    p_peak = RHO0 * sd_m2 * (2 * math.pi * f) ** 2 * xmax_m * n_drivers \
+             / (2 * math.pi * r_m)
     p_rms = p_peak / math.sqrt(2.0)
     return 20.0 * math.log10(p_rms / P_REF)
 

@@ -1,13 +1,20 @@
 #!/usr/bin/env python3
 """Compute physical port length for a target tuning Fb.
 
-Helmholtz resonance with end correction k * sqrt(Sp/pi):
-    Fb = (c / 2*pi) * sqrt(Sp / (Vb * Lp_eff))
-    Lp_eff = Lp_physical + k * sqrt(Sp/pi)
+Helmholtz resonance with end correction k_total * a, where a = sqrt(Sp/pi)
+is the port radius:
+    Fb         = (c / 2*pi) * sqrt(Sp / (Vb * Lp_eff))
+    Lp_eff     = Lp_physical + k_total * a
+    k_total    = sum of per-end correction factors
 
-For a flush (one-end-flanged, one-end-free) port: k_total = 0.732
-For both-flanged port:                            k_total = 0.85
-For a free (both-end-free) port:                  k_total = 0.613
+Per-end corrections (Beranek, Acoustics §5.6):
+    flanged end:   0.85 * a
+    free   end:    0.61 * a
+
+So total k for the two ends:
+    Both flanged (typical port flush with both inner and outer baffle): 1.70
+    One flanged + one free (port projecting freely on one side):        1.46
+    Both free (port unflanged on both ends; rare):                      1.22
 
 Also reports air velocity at Fb at a target peak displacement, so you
 can check chuffing before building.
@@ -23,10 +30,10 @@ C_SOUND = 343.0  # m/s
 def port_length(fb, vb_L, dia_mm, both_flanged=True, sd_cm2=None, x_peak_mm=None):
     sp = math.pi * (dia_mm * 1e-3 / 2.0) ** 2
     vb = vb_L * 1e-3
-    k = 0.85 if both_flanged else 0.732
+    k_total = 1.70 if both_flanged else 1.46
 
     lp_eff = (C_SOUND / (2 * math.pi * fb)) ** 2 * sp / vb
-    lp_physical = lp_eff - k * math.sqrt(sp / math.pi)
+    lp_physical = lp_eff - k_total * math.sqrt(sp / math.pi)
 
     if lp_physical <= 0:
         raise ValueError(
@@ -37,7 +44,7 @@ def port_length(fb, vb_L, dia_mm, both_flanged=True, sd_cm2=None, x_peak_mm=None
         "Sp_cm2": sp * 1e4,
         "Lp_physical_mm": lp_physical * 1e3,
         "Lp_effective_mm": lp_eff * 1e3,
-        "end_correction_mm": k * math.sqrt(sp / math.pi) * 1e3,
+        "end_correction_mm": k_total * math.sqrt(sp / math.pi) * 1e3,
     }
 
     if sd_cm2 is not None and x_peak_mm is not None:
