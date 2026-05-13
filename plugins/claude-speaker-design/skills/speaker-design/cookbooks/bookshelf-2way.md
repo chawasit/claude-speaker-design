@@ -58,21 +58,32 @@ roughly 200 × 350 × 280 mm (W × H × D).
 ### Port
 
 Cone Sd = 132 cm². Peak excursion at Fb for 100 dB at 1 m is ~3 mm.
-Pick a 60 mm diameter port (Sp = 28.3 cm²); compute length:
 
+A 60 mm port at Fb = 36 Hz in a 12.3 L box needs ~478 mm physical
+length (Helmholtz equation with proper Beranek end correction
+1.70·a per flanged end). That's too long for a 280 mm-deep cabinet.
+Two practical options:
+
+**Option A — smaller port (40 mm dia):**
 ```
-$ python tools/port_length.py --fb 36 --vb 12.3 --dia 60 \
+$ python tools/port_length.py --fb 36 --vb 12.3 --dia 40 \
                               --sd 132 --xpeak 3
-Port area     = 28.3 cm^2  (dia 60 mm)
-End correction= 25.5 mm
-Effective Lp  = 188.9 mm
-Physical Lp   = 163.4 mm  <-- cut this length
-Port velocity = 8.4 m/s peak  (OK)
+Port area     = 12.6 cm^2  (dia 40 mm)
+End correction= 34.0 mm
+Effective Lp  = 235.0 mm
+Physical Lp   = 201.0 mm  <-- cut this length
+Port velocity = 7.4 m/s peak  (OK; < 17 m/s)
 ```
 
-163 mm port — fits diagonally in the 280 mm cabinet depth, or fits
-straight if mounted to the rear panel. Velocity 8.4 m/s is well under
-the 17 m/s chuffing threshold.
+201 mm fits in the 280 mm depth. Velocity 7.4 m/s is well under the
+17 m/s chuffing threshold.
+
+**Option B — passive radiator** (50 % more cabinet depth or 1.5 ×
+moving mass): replaces the port entirely; no port-length constraint
+at all.
+
+For this design we choose Option A: 40 mm diameter × 201 mm long
+port mounted to the rear panel.
 
 ### Sanity checks
 

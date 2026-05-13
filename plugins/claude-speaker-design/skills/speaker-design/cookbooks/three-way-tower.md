@@ -62,14 +62,14 @@ Cone Sd = 350 cm². For Fb = 28 Hz with a 75 mm diameter port:
 ```
 $ python tools/port_length.py --fb 28 --vb 50 --dia 75 --sd 350 --xpeak 4
 Port area     = 44.2 cm^2  (dia 75 mm)
-End correction= 31.9 mm
-Effective Lp  = ~210 mm
-Physical Lp   = ~178 mm
-Port velocity = ~12 m/s peak (OK; < 17 m/s threshold)
+End correction= 63.8 mm
+Effective Lp  = 335.9 mm
+Physical Lp   = 272.1 mm
+Port velocity = 5.6 m/s peak (OK; < 17 m/s threshold)
 ```
 
-178 mm port — fits along the back panel; flares preferred to avoid
-turbulence at high SPL.
+272 mm port — fits along the back panel of the 350 mm tower depth;
+flares preferred at both ends to reduce chuffing at high SPL.
 
 ### Excursion check
 

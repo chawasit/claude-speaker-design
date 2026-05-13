@@ -24,15 +24,19 @@ import math
 
 
 def lr2_values(fc, z):
-    # 2nd-order Butterworth with Q=0.707 has C1=1/(omega*Z*sqrt(2))
-    # but LR2 is Q=0.5 -> different coefficient.
-    # LR2 LP:  L = Z / (pi * fc),   C = 1 / (4 * pi * fc * Z)
-    # LR2 HP:  L = Z / (4 * pi * fc),  C = 1 / (pi * fc * Z)
-    lp_L = z / (math.pi * fc)
-    lp_C = 1.0 / (4 * math.pi * fc * z)
-    hp_L = z / (4 * math.pi * fc)
-    hp_C = 1.0 / (math.pi * fc * z)
-    return {"LP": {"L_H": lp_L, "C_F": lp_C}, "HP": {"L_H": hp_L, "C_F": hp_C}}
+    # LR2 = Linkwitz-Riley 2nd order, Q = 0.5 at fc.
+    # For an LC ladder (series L + shunt C for LP; series C + shunt L for HP)
+    # into resistive load R:
+    #     omega0 = 1/sqrt(LC)
+    #     Q      = R * sqrt(C/L)
+    # Solving for Q=0.5, omega0 = 2*pi*fc, R = Z gives:
+    #     L = Z / (pi * fc),   C = 1 / (4 * pi * fc * Z)
+    # The same component values apply to both LP and HP (they are duals
+    # using opposite series/shunt assignment).
+    L_val = z / (math.pi * fc)
+    C_val = 1.0 / (4 * math.pi * fc * z)
+    return {"LP": {"L_H": L_val, "C_F": C_val},
+            "HP": {"L_H": L_val, "C_F": C_val}}
 
 
 def lr4_values(fc, z):
