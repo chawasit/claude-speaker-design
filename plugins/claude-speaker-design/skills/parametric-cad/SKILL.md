@@ -44,6 +44,7 @@ When combined with the `speaker-design` skill, use the cookbook
 | M-screws, inserts, pilot holes, glue, sanding, finish | `references/fasteners-and-finishing.md` |
 | process-specific joints (FDM, SLA, CNC, laser, metal, snap-fit, tab-and-slot, press-fit, T-slot, multi-material, CTE) | `references/joints-by-process.md` |
 | kerf comp, finish buildup, shrinkage, stack-up, as-built offsets | `references/manufacturing-offsets.md` |
+| dadoes / rabbets / grooves as assembly guides, self-aligning joinery | `references/assembly-locating-features.md` |
 | assemblies, mates, drawings, GD&T, BOM             | `references/assemblies-and-drawings.md`    |
 | sheet nesting, kerf, DXF export, grain orientation | `references/sheet-goods-nesting.md`        |
 | worked: bookshelf cabinet for the 2-way design     | `cookbooks/speaker-cabinet-2way.md`        |
