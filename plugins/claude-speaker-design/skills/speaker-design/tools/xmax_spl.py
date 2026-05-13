@@ -52,8 +52,9 @@ def main(argv=None):
     log_min = math.log10(args.f_min)
     log_max = math.log10(args.f_max)
     crossing = None
-    for i in range(args.steps + 1):
-        f = 10 ** (log_min + (log_max - log_min) * i / args.steps)
+    n_steps = max(args.steps, 1)
+    for i in range(n_steps + 1):
+        f = 10 ** (log_min + (log_max - log_min) * i / n_steps)
         spl = spl_at(f, sd, xmax, args.r, args.n)
         print(f"  {f:6.1f}    {spl:6.1f}")
         if args.target_spl is not None and crossing is None and spl >= args.target_spl:
