@@ -71,26 +71,127 @@ anywhere you'll undo/redo a fastener.
 
 A knurled brass insert melted into a pre-drilled hole with a
 soldering iron tip. Standard for 3D-printed parts; works in MDF and
-softwood (the iron fuses fiber rather than melts plastic).
+softwood (the iron fuses fiber rather than melts plastic). The
+best-tested data for FDM application is from CNC Kitchen (Stefan
+Hermann); the numbers below are sourced from his published tests
+where possible, with "not published" flagged where they are not.
 
-Common manufacturers: McMaster (94459A series), Yardley, Voltive,
-generic Aliexpress.
+**Recommended insert design**: brass with **opposed-helical or
+diagonal knurling** (Voltive, Ruthex, CNC Kitchen Standard) plus a
+**chamfered flange** for self-aligning entry. Avoid injection-
+molding-style inserts with **vertical-knurl only** — CNC Kitchen
+measured M3 pull-out of ~39 kgf in PLA for those vs ~181 kgf for
+double-knurled Ruthex inserts (~4× weaker), because vertical knurls
+don't resist pull-out and the lack of chamfer prevents seating in
+FDM holes.
 
-**Yardley / standard hex pattern:**
+**Insert dimensions** (CNC Kitchen Standard family; lengths from
+cnckitchen.store SKUs):
 
-| Insert | OD     | Length | Pilot hole | Min wall thickness |
-|--------|--------|--------|------------|---------------------|
-| M2     | 3.5 mm | 4.0 mm | 3.2 mm     | 1.5 mm              |
-| M3     | 4.6 mm | 5.7 mm | 4.0 mm     | 2.0 mm              |
-| M4     | 6.4 mm | 8.1 mm | 5.6 mm     | 2.5 mm              |
-| M5     | 7.1 mm | 9.5 mm | 6.4 mm     | 3.0 mm              |
-| M6     | 8.7 mm | 12.7 mm| 7.9 mm     | 3.5 mm              |
-| M8     | 11.1 mm| 12.7 mm| 9.9 mm     | 4.5 mm              |
+| Insert | Length (Standard) | Length (Short) | Notes                |
+|--------|-------------------|----------------|----------------------|
+| M2     | 3.0 mm            | —              | small parts          |
+| M2.5   | 3.0 mm            | —              |                      |
+| M3     | 5.7 mm            | 3.0 mm         | most common in DIY   |
+| M4     | 8.1 mm            | 4.0 mm         | structural mounts    |
+| M5     | 9.5 mm            | 5.8 mm         |                      |
+| M6     | 12.7 mm           | —              |                      |
+| M8     | 12.7 mm           | —              |                      |
 
-Installation: pilot the hole, set the insert on it, press the
-soldering-iron tip (with insert adapter) onto it. Push **slowly,
-square to the surface**, until the insert is flush. Holds 200–400 N
-pullout in MDF; 400–600 N in hardwood; less in particleboard.
+The Voron-community standard insert is **M3 × 5 mm OD × 4 mm long**
+with a 4.0 mm bore and 5.6 mm hole depth (insert length + 1 mm
+reservoir).
+
+**Pilot hole diameter — CNC Kitchen tested M3 only**:
+- Horizontal or 45° hole (axis parallel to bed): **4.1 mm minimum** to
+  accept the insert with no flash.
+- Vertical hole (axis perpendicular to bed): **4.2 mm minimum**.
+- **Recommended CAD value: ~4.25 mm** to absorb printer variation.
+
+The ~0.1 mm extra needed for vertical holes is because horizontal
+holes' top edges sag inward from bridging, leaving them slightly
+narrower than designed; vertical holes print closer to nominal.
+
+**Per-size pilot diameters for M2, M2.5, M4, M5, M6, M8 are NOT
+published as a single table by CNC Kitchen.** They ship a
+parametric "Hole Size Test for Heat-Set Inserts" on Printables
+(printables.com/model/1648510) and recommend printing it at your
+actual material + wall count to find the smallest hole that accepts
+the specific insert. As a starting point, scale from the M3 result:
+target a pilot ≈ insert OD + 0.2 mm vertical / + 0.1 mm horizontal.
+
+**Hole depth**: insert length + ~1 mm reservoir to receive plastic
+displaced during melt-in. A blind-hole depth shorter than the insert
+will overflow molten plastic; deeper than needed wastes Z space but
+doesn't hurt.
+
+**Pull-out force — sourced**:
+
+For M3 in **PLA** (CNC Kitchen, "Cheap VS Expensive" blog):
+
+| Mounting                          | Pull-out (M3, PLA, axial)  |
+|-----------------------------------|------------------------------|
+| Ruthex double-knurled + chamfer   | ~181 kgf (~1.78 kN)         |
+| Generic eBay knurled              | ~157 kgf (~1.54 kN)         |
+| Direct screw into PLA (no insert) | ~142 kgf (~1.39 kN)         |
+| Injection-mold-style (vertical-knurl only) | ~39 kgf (~0.38 kN) |
+
+For M3 in **PETG** (CNC Kitchen, "Strength Assessment" blog):
+
+| Mounting                          | Pull-out (M3, PETG, axial)  |
+|-----------------------------------|------------------------------|
+| **Bottom-pocket captive nut**     | ~166 kgf (~1.63 kN)  ←        |
+| Helicoil                          | ~120 kgf                      |
+| Ruthex heat-set                   | ~119 kgf                      |
+| Direct screw into PETG            | ~118 kgf                      |
+| Side-pocket captive nut           | ~86 kgf                       |
+
+Notable findings: in PETG, a well-designed **captive-nut pocket**
+beats a heat-set insert. Worth considering for repeated-disassembly
+critical joints where a metal nut + bolt is feasible.
+
+**ABS / ASA / PC pull-out forces — not published** by CNC Kitchen;
+extrapolate cautiously from PETG values (FDM ABS typically holds
+~80% of PETG's force).
+
+**Installation technique** (CNC Kitchen, "Tips & Tricks" blog):
+
+| Material | Soldering iron set-point      |
+|----------|--------------------------------|
+| PLA      | 225 °C (10–20° above print temp)|
+| PETG     | 245 °C                          |
+| ABS      | 265 °C                          |
+
+- **Tip selection**: flat-faced brass tip sized to the insert's
+  internal diameter (e.g. M3-sized tip for M3 insert). CNC Kitchen
+  sells threaded tips that screw into the insert for true axial
+  pushing; equivalent generic tips work.
+- **Technique**: drive only to **~90 % of the full depth** with the
+  hot iron, then withdraw the iron and **push the last 10 % home
+  cold** with a flat tool (screwdriver shank, flat-faced tweezers).
+  The cold finish guarantees the insert flange is flush and square
+  as the plastic re-solidifies — eliminating the slight tilt that
+  develops when you drive all the way to flush with the hot iron.
+- **Square to the surface**: insert tilt is the most common DIY
+  failure. A drill press with a chuck-mounted insert-press tool
+  improves squareness vs hand-pressing.
+
+**Common installation mistakes**:
+- Hole too narrow → plastic bulges; insert seats off-axis.
+- Hole too wide → no friction, insert spins under torque.
+- Iron too cold → forces insert and tears side walls.
+- No relief depth (hole = insert length exactly) → plastic overflows
+  the flange face.
+- Tilted insert → screw enters off-axis, strips threads.
+
+**Holding strength in MDF / wood** (CNC Kitchen tests are FDM-only;
+these come from wider-community data):
+- 200–400 N pull-out in MDF.
+- 400–600 N in hardwood.
+- Less than 100 N in particleboard alone — pair with epoxy if used.
+
+Sources: CNC Kitchen blog posts cited above; specific test methods
+on the linked pages.
 
 ### Press-fit / barbed (no heat)
 

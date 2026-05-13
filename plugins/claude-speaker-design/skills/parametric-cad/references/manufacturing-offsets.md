@@ -57,19 +57,72 @@ For each process, the typical sources of deviation from CAD nominal.
 |------------------------------|--------------------|-----------------------------------------|
 | First-layer compression      | +0.10 to +0.15 mm  | Bottom face is larger than nominal     |
 | XY shrinkage during cool     | 0.1-0.5 %          | Bulk part is smaller than nominal      |
-| Hole shrinkage               | -0.10 to -0.20 mm  | Holes print smaller than CAD            |
+| Hole shrinkage (horizontal axis) | -0.10 to -0.20 mm | Top of hole sags from bridging       |
+| Hole shrinkage (vertical axis)   | -0.10 mm          | Smaller deviation; vertical prints closer to nominal |
 | Outside slot/tab oversize    | +0.10 to +0.20 mm  | Outside walls print slightly fatter    |
 | Bridge sag                   | +0.10 to +0.50 mm  | Long bridges sag downward into pocket  |
 | Overhang slope               | +0.10 to +0.30 mm  | <45° overhangs droop                   |
 | Layer adhesion gap           | 0 to 0.05 mm       | Z-stack of layer lines visible          |
 
+**Horizontal vs vertical holes** (sourced: CNC Kitchen, "Tips &
+Tricks for Heat-Set Inserts"): for a 4.0 mm OD M3 heat-set insert,
+the minimum hole that accepts the insert with no flash is **4.1 mm
+horizontal / 45°** vs **4.2 mm vertical** — i.e. vertical holes
+need ~0.1 mm more diameter for the same fit. Horizontal holes
+print **smaller** than CAD because their tops sag inward from
+bridging; vertical holes don't have this issue but they accumulate
+the XY shrinkage error.
+
+**Slicer-side vs CAD-side compensation** (sourced: CNC Kitchen,
+"The Case Against Calibration Cubes"):
+
+| Offset                              | Where to compensate         |
+|-------------------------------------|------------------------------|
+| Bulk material shrinkage (uniform XY)| **Slicer**: per-material scaling factor |
+| Feature-specific (hole oversize)    | **CAD** or slicer "XY hole compensation" |
+| First-layer compression              | CAD (chamfer / counterbore) |
+| Outside-perimeter oversize          | Slicer "horizontal expansion" |
+
+CNC Kitchen's position: **don't tweak the printer steps/mm** to fix
+material-dependent shrinkage; that produces a per-material
+configuration burden. Instead, validate one per-material scaling
+factor in the slicer, then leave the CAD model nominal. Use feature-
+level compensation (in CAD or via "XY hole comp" in the slicer)
+only when the feature deviation differs from the bulk scaling.
+
+**No published per-size pilot table beyond M3.** For other insert
+sizes, print CNC Kitchen's parametric "Hole Size Test for Heat-Set
+Inserts" (printables.com/model/1648510) at your actual material +
+wall count to find the correct value, or extrapolate cautiously
+from M3.
+
 **Process-aware parameters:**
 ```python
-fdm_first_layer_compensation = 0.10  # bottom face larger
-fdm_hole_oversize             = 0.20  # model holes 0.2 mm larger than nominal
-fdm_outside_undersize         = 0.15  # model outside walls 0.15 mm smaller
-fdm_xy_scale                  = 1.003 # 0.3% to compensate shrink
+# Bulk shrinkage compensation — typically slicer-side, NOT CAD:
+# fdm_xy_scale_slicer        = 1.003   # set in slicer, not CAD parameter table
+
+# Feature-level CAD compensation:
+fdm_first_layer_compensation = 0.10    # bottom face larger
+fdm_hole_oversize_vert       = 0.20    # vertical holes 0.2 mm larger than nominal
+fdm_hole_oversize_horiz      = 0.10    # horizontal holes (sag-corrected) 0.1 mm larger
+fdm_outside_undersize        = 0.15    # outside walls print 0.15 mm under
+
+# Heat-set insert pilot (M3 — CNC Kitchen verified):
+fdm_m3_insert_pilot_vert     = 4.25    # CAD value for vertical M3 insert hole
+fdm_m3_insert_pilot_horiz    = 4.15    # CAD value for horizontal M3 insert hole
+fdm_insert_reservoir_depth   = 1.0     # extra below insert length to capture displaced plastic
 ```
+
+**Items NOT published as numbers by CNC Kitchen** (so don't invent):
+- Elephant's-foot magnitude or recommended chamfer dimension.
+- Maximum clean-bridge span.
+- Per-material shrinkage percentages (gated behind their paid
+  CaliFlower spreadsheet).
+- Per-size pilot diameters for M2 / M2.5 / M4 / M5 / M6 / M8 inserts
+  as a unified table.
+
+For these, run the test print on your specific printer + material
+combination.
 
 ### SLA / DLP 3D printing (UV resin)
 
